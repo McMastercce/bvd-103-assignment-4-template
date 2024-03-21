@@ -1,26 +1,28 @@
-import { type Express } from "express";
 import { z } from "zod";
-import { processRequest } from "zod-express-middleware";
 import { book_collection } from "../database_access";
 import { type Book } from "../adapter/assignment-2";
+import { ZodRouter } from "koa-zod-router";
 
-export default function books_list(app: Express) {
-    app.get("/books",
-        // We are using zod and zod-express-middleware to validate that our query string is correct, and if not
-        // it will reject the request.
-        processRequest({
+export default function books_list(router: ZodRouter) {
+
+    router.register({
+        name: "list books",
+        method: "get",
+        path: "/books",
+        validate: {
             query: z.object({
                 filters: z.object({
                     from: z.coerce.number().optional(),
                     to: z.coerce.number().optional()
                 }).array().optional()
             })
-        }), async (req, res) => {
-            let filters = req.query['filters'] || [];
+        },
+        handler: async (ctx, next) => {
+            const { filters } = ctx.request.query;
 
-            const query = {
-                $or: filters.map(({from, to}) => {
-                    const filter : { $gte?: number, $lte?: number }= {};
+            const query = filters && filters.length > 0 ? {
+                $or: filters.map(({ from, to }) => {
+                    const filter: { $gte?: number, $lte?: number } = {};
                     let valid = false;
                     if (from) {
                         valid = true;
@@ -32,12 +34,12 @@ export default function books_list(app: Express) {
                     }
                     return valid ? filter : false;
                 }).filter(value => value !== false).map((filter) => {
-                    return { price: filter as {$gtr?: number, $lte?: number }}
+                    return { price: filter as { $gtr?: number, $lte?: number } }
                 })
-            };
-            
-            const book_list = await book_collection.find(query.$or.length > 0 ? query : {}).map(document => {
-                let book : Book = {
+            } : {};
+
+            const book_list = await book_collection.find(query).map(document => {
+                let book: Book = {
                     id: document._id.toHexString(),
                     name: document.name,
                     image: document.image,
@@ -47,7 +49,9 @@ export default function books_list(app: Express) {
                 };
                 return book;
             }).toArray();
-            res.json(book_list);
-            return;
-        });
+
+            ctx.body = book_list;
+            await next();
+        }
+    });
 }
