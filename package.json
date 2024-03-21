@@ -4,7 +4,9 @@
   "description": "This is a template repository for the first assignment in BVD 103 at McMaster Continuing Education.",
   "main": "index.ts",
   "scripts": {
-    "start-server": "tsx ./index.ts"
+    "start-server": "tsx ./index.ts",
+    "lint": "eslint ./**/*.ts",
+    "fix-lint": "eslint --fix ./**/*.ts"
   },
   "keywords": [],
   "author": "",
@@ -14,14 +16,20 @@
     "koa": "^2.15.2",
     "koa-qs": "^3.0.0",
     "koa-zod-router": "^2.2.0",
-    "zod": "^3.22.4",
+    "mongodb": "^6.5.0",
     "uuid": "^9.0.1",
-    "mongodb": "^6.5.0"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/koa": "~2.15.0",
-    "@types/koa-qs": "~2.0.3",
     "@types/koa__cors": "~5.0.0",
-    "typescript": "^5.4.2"
+    "@types/koa-qs": "~2.0.3",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "eslint": "^8.57.0",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "typescript": "^5.4.3"
   }
 }
