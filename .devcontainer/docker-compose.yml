@@ -1,0 +1,11 @@
+version: "4.0"
+
+services:
+  dev:
+    image: mcr.microsoft.com/devcontainers/typescript-node:1-20-bookworm
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity
+
+  mongo:
+    image: mongo:latest

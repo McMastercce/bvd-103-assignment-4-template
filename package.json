@@ -1,0 +1,26 @@
+{
+  "name": "assignment-template",
+  "version": "1.0.0",
+  "description": "This is a template repository for the first assignment in BVD 103 at McMaster Continuing Education.",
+  "main": "index.ts",
+  "scripts": {
+    "start-server": "tsx ./index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.3",
+    "zod": "^3.22.4",
+    "zod-express-middleware": "^1.4.0",
+    "uuid": "^9.0.1",
+    "mongodb": "^6.5.0"
+  },
+  "devDependencies": {
+    "@types/cors": "~2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/uuid": "~9.0.8",
+    "typescript": "^5.4.2"
+  }
+}
