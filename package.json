@@ -6,7 +6,8 @@
   "scripts": {
     "start-server": "tsx ./index.ts",
     "lint": "eslint ./**/*.ts",
-    "fix-lint": "eslint --fix ./**/*.ts"
+    "fix-lint": "eslint --fix ./**/*.ts",
+    "check-types": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
