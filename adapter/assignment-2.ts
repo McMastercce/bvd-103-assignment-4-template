@@ -1,4 +1,4 @@
-import assignment1 from './assignment-1'
+import previous_assignment from './assignment-1'
 
 export type BookID = string
 
@@ -12,7 +12,7 @@ export interface Book {
 };
 
 async function listBooks (filters?: Array<{ from?: number, to?: number }>): Promise<Book[]> {
-  return await assignment1.listBooks(filters)
+  return await previous_assignment.listBooks(filters)
 }
 
 async function createOrUpdateBook (book: Book): Promise<BookID> {

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { type ZodRouter } from 'koa-zod-router'
-import { book_collection } from '../database_access'
+import { bookCollection } from '../database_access'
 import { ObjectId } from 'mongodb'
 
 export default function deleteBook (router: ZodRouter): void {
@@ -16,7 +16,7 @@ export default function deleteBook (router: ZodRouter): void {
     handler: async (ctx, next) => {
       const id = ctx.request.params.id
       const objectId = ObjectId.createFromHexString(id)
-      const result = await book_collection.deleteOne({ _id: { $eq: objectId } })
+      const result = await bookCollection.deleteOne({ _id: { $eq: objectId } })
       if (result.deletedCount === 1) {
         ctx.body = {}
       } else {
